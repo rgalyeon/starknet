@@ -5,12 +5,15 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 from typing import Union
 
+import loguru
 import questionary
 from questionary import Choice
 
-from config import ACCOUNTS, RECIPIENTS
+from config import RECIPIENTS
 from utils.helpers import remove_wallet
 from utils.sleeping import sleep
+from utils.password_handler import get_private_keys
+from utils.logs_handler import filter_out_utils
 from modules_settings import *
 from settings import (
     TYPE_WALLET,
@@ -27,6 +30,7 @@ def get_module():
     result = questionary.select(
         "Select a method to get started",
         choices=[
+            Choice("0) Encrypt starknet wallets", encrypt_privates),
             Choice("1) Make deposit to Starknet", deposit_starknet),
             Choice("2) Make withdraw from Starknet", withdraw_starknet),
             Choice("3) Deploy argent account", deploy_argent),
@@ -70,6 +74,7 @@ def get_module():
 
 
 def get_wallets(use_recipients: bool = False):
+    ACCOUNTS = get_private_keys()
     if use_recipients:
         account_with_recipients = dict(zip(ACCOUNTS, RECIPIENTS))
 
@@ -108,6 +113,8 @@ def _async_run_module(module, account_id, key, recipient):
 
 
 def main(module):
+    if module == encrypt_privates:
+        return encrypt_privates()
     if module in [deposit_starknet, withdraw_starknet, bridge_orbiter, make_transfer]:
         wallets = get_wallets(True)
     else:
@@ -131,6 +138,7 @@ def main(module):
 if __name__ == '__main__':
     print("❤️ Subscribe to me – https://t.me/sybilwave\n")
 
+    loguru.logger.add('logs.txt', filter=filter_out_utils)
     module = get_module()
     if module == "tx_checker":
         get_tx_count(TYPE_WALLET)

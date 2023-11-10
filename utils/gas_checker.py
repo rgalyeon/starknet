@@ -6,7 +6,7 @@ from starknet_py.net.gateway_client import GatewayClient
 from web3 import Web3
 from web3.eth import AsyncEth
 from config import RPC
-from settings import CHECK_GWEI, MAX_GWEI
+from settings import CHECK_GWEI, MAX_GWEI, GAS_SLEEP_FROM, GAS_SLEEP_TO
 from loguru import logger
 
 from utils.sleeping import sleep
@@ -32,7 +32,7 @@ async def wait_gas_ethereum():
 
         if gas > MAX_GWEI:
             logger.info(f'Current GWEI: {gas} > {MAX_GWEI}')
-            await sleep(60, 70)
+            await sleep(GAS_SLEEP_FROM, GAS_SLEEP_TO)
         else:
             logger.success(f"GWEI is normal | current: {gas} < {MAX_GWEI}")
             break

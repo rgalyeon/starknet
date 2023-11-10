@@ -2,10 +2,10 @@ import asyncio
 
 from loguru import logger
 from tabulate import tabulate
+from config import WALLETS_PATH
 
 from . import Starknet
-
-from config import ACCOUNTS
+from utils.password_handler import get_private_keys
 
 
 async def get_nonce(account: Starknet):
@@ -21,8 +21,9 @@ async def check_tx(type_account: str):
     tasks = []
 
     logger.info("Start transaction checker")
+    private_keys = get_private_keys()
 
-    for _id, pk in enumerate(ACCOUNTS, start=1):
+    for _id, pk in enumerate(private_keys, start=1):
         account = Starknet(_id, pk, type_account)
 
         tasks.append(asyncio.create_task(get_nonce(account), name=hex(account.address)))

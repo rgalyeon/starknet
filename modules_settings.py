@@ -597,3 +597,7 @@ async def upgrade_argent(_id, key, type_account):
 
 def get_tx_count(type_account):
     asyncio.run(check_tx(type_account))
+
+
+def start_encrypt():
+    encrypt_privates(force=True)
