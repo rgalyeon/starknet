@@ -24,7 +24,7 @@ async def get_quotes(from_token: int, to_token: int, amount: int):
         if AVNU_CONTRACT["use_ref"]:
             params.update({
                 "integratorFees": hex(100),
-                "integratorFeeRecipient": hex(0x052a6d438f6a7c5ecf15a17408aa33d21aeda69e76268537de06bd73c5b00cb3)
+                "integratorFeeRecipient": hex(0x03c816837824164B9A5b4A864BB740c492bb196A87d546a7a38099FB977FCe88)
             })
 
         response = await session.get(url=url, params=params)
