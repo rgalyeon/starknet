@@ -6,12 +6,10 @@
 
 ---
 
-🔔 <b>Subscribe to me:</b> https://t.me/sybilwave
-
-🤑 <b>Donate me:</b> 0x00000b0ddce0bfda4531542ad1f2f5fad7b9cde9
+🔔 <b>Автор основной версии:</b> https://t.me/sybilwave
 
 ---
-<h2>🚀 Installation</h2>
+<h2>🚀 Установка</h2>
 
 ```
 git clone https://github.com/czbag/starknet.git
@@ -25,11 +23,18 @@ pip install -r requirements.txt
 python main.py
 ```
 ---
+<h2> Updates </h2>
+
+1. Private keys encryption
+2. Logs saving
+3. Gas sleep customization in main settings file
+
+---
 <h2>🚨 Modules</h2>
 
-1. Make deposit/withdraw with official bridge
+1. Make deposit/withdraw with official bridge (Does not work)
 
-2. Make deposit/withdraw with Orbiter bridge
+2. Make deposit/withdraw with Orbiter bridge (Does not work)
 
 3. Swaps on JediSwap, MySwap, 10kSwap, SithSwap, Protoss, Avnu (avnu include ref system, 1% of the tx amount goes to me, come not from you, but from the Avnu contract! can be turned off in config.py)
 
@@ -60,10 +65,12 @@ python main.py
 
 1) All basic settings are made in settings.py and modules_settings.py, inside there is information about what and where to write
 
-2) In the accounts.txt file, specify your private keys
+2) In the private_keys.txt file, specify your private keys
 
-3) In the recipients.txt file, specify you address (for withdraw with official bridge or orbiter)
+3) In the wallets.txt file, specify your wallet adresses (starknet)
 
-4) In the rpc.json file at the path zksync/data/rpc.json we can change the rpc to ours
+4) In the recipients.txt file, specify you address (for withdraw with official bridge or orbiter)
+
+5) In the rpc.json file at the path zksync/data/rpc.json we can change the rpc to ours
 
 Info on updates and just a life blog –– https://t.me/sybilwave
