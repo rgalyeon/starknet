@@ -168,3 +168,4 @@ __pycache__/
 */__pycache__/
 .idea/
 venv
+encrypted_data.txt
