@@ -114,7 +114,7 @@ def _async_run_module(module, account_id, key, recipient):
 
 def main(module):
     if module == encrypt_privates:
-        return encrypt_privates()
+        return encrypt_privates(force=True)
     if module in [deposit_starknet, withdraw_starknet, bridge_orbiter, make_transfer]:
         wallets = get_wallets(True)
     else:
