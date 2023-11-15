@@ -53,7 +53,7 @@ class ZkLend(Starknet):
             max_percent
         )
 
-        logger.info(f"[{self._id}][{hex(self.address)}] Make deposit {token} on ZkLend")
+        logger.info(f"[{self._id}][{self.address_str}] Make deposit {token} on ZkLend")
 
         approve_contract = self.get_contract(STARKNET_TOKENS[token])
 
@@ -86,7 +86,7 @@ class ZkLend(Starknet):
         amount = await self.get_deposit_amount(token)
 
         logger.info(
-            f"[{self._id}][{hex(self.address)}] Make withdraw {token} from ZkLend"
+            f"[{self._id}][{self.address_str}] Make withdraw {token} from ZkLend"
         )
 
         if amount > 0:
@@ -100,14 +100,14 @@ class ZkLend(Starknet):
 
             await self.wait_until_tx_finished(transaction_response.transaction_hash)
         else:
-            logger.error(f"[{self._id}][{hex(self.address)}] Deposit not found")
+            logger.error(f"[{self._id}][{self.address_str}] Deposit not found")
 
     @retry
     @check_gas("starknet")
     async def enable_collateral(self, use_token: List):
         token = random.choice(use_token)
 
-        logger.info(f"[{self._id}][{hex(self.address)}] Make enable collateral {token} for ZkLend")
+        logger.info(f"[{self._id}][{self.address_str}] Make enable collateral {token} for ZkLend")
 
         enable_collateral_call = self.contract.functions["enable_collateral"].prepare(
             STARKNET_TOKENS[token]
@@ -124,7 +124,7 @@ class ZkLend(Starknet):
     async def disable_collateral(self, use_token: List):
         token = random.choice(use_token)
 
-        logger.info(f"[{self._id}][{hex(self.address)}] Make disable collateral {token} for ZkLend")
+        logger.info(f"[{self._id}][{self.address_str}] Make disable collateral {token} for ZkLend")
 
         disable_collateral_call = self.contract.functions["disable_collateral"].prepare(
             STARKNET_TOKENS[token]

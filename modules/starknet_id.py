@@ -16,7 +16,7 @@ class StarknetId(Starknet):
     @retry
     @check_gas("starknet")
     async def mint(self):
-        logger.info(f"[{self._id}][{hex(self.address)}] Start mint Starknet ID")
+        logger.info(f"[{self._id}][{self.address_str}] Start mint Starknet ID")
 
         mint_starknet_id_call = self.contract.functions["mint"].prepare(int(random.random() * 1e12))
 

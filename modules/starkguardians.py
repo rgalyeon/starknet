@@ -25,7 +25,7 @@ class StarkGuardians(Starknet):
     @retry
     @check_gas("starknet")
     async def deploy_token(self):
-        logger.info(f"[{self._id}][{hex(self.address)}] Deploy token contract")
+        logger.info(f"[{self._id}][{self.address_str}] Deploy token contract")
 
         token_name, token_symbol = self.get_random_name()
 
@@ -50,7 +50,7 @@ class StarkGuardians(Starknet):
     @retry
     @check_gas("starknet")
     async def deploy_nft(self, sleep_from: int, sleep_to: int):
-        logger.info(f"[{self._id}][{hex(self.address)}] Deploy NFT contract")
+        logger.info(f"[{self._id}][{self.address_str}] Deploy NFT contract")
 
         token_name, token_symbol = self.get_random_name()
 
@@ -78,7 +78,7 @@ class StarkGuardians(Starknet):
     @retry
     @check_gas("starknet")
     async def mint_nft(self, tx_hash: int):
-        logger.info(f"[{self._id}][{hex(self.address)}] Mint NFT")
+        logger.info(f"[{self._id}][{self.address_str}] Mint NFT")
 
         data = await self.get_transaction(tx_hash)
 

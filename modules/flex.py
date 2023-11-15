@@ -15,7 +15,7 @@ class Flex(Starknet):
     @retry
     @check_gas("starknet")
     async def cancel_order(self):
-        logger.info(f"[{self._id}][{hex(self.address)}] Flex cancel order")
+        logger.info(f"[{self._id}][{self.address_str}] Flex cancel order")
 
         flex_call = self.contract.functions["cancelMakerOrder"].prepare(20)
 

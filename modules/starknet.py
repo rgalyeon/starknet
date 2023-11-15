@@ -52,6 +52,7 @@ class Starknet:
         )
         self.account.ESTIMATED_FEE_MULTIPLIER = FEE_MULTIPLIER
         self.explorer = RPC["starknet"]["explorer"]
+        self.address_str = '0x' + '0'*(66-len(hex(self.address))) + hex(self.address)[2::]
 
     def _create_account(self, type_account) -> Union[int, None]:
         if type_account == "argent":
@@ -163,7 +164,7 @@ class Starknet:
     async def wait_until_tx_finished(self, tx_hash: int):
         await self.account.client.wait_for_tx(tx_hash, check_interval=10)
 
-        logger.success(f"[{self._id}][{hex(self.address)}] {self.explorer}{hex(tx_hash)} successfully!")
+        logger.success(f"[{self._id}][{self.address_str}] {self.explorer}{hex(tx_hash)} successfully!")
 
     async def get_transaction(self, tx_hash: int):
         transaction_data = await self.account.client.get_transaction_receipt(tx_hash)
@@ -192,7 +193,7 @@ class Starknet:
             max_percent
         )
 
-        logger.info(f"[{self._id}][{hex(self.address)}] Withdraw from Starknet | {amount} ETH")
+        logger.info(f"[{self._id}][{self.address_str}] Withdraw from Starknet | {amount} ETH")
 
         spaceshard_contract = self.get_contract(STARKNET_TOKENS["ETH"])
         bridge_contract = self.get_contract(BRIDGE_CONTRACTS["withdraw"], WITHDRAW_ABI)
@@ -222,7 +223,7 @@ class Starknet:
     @retry
     @check_gas("starknet")
     async def deploy_argent(self):
-        logger.info(f"[{self._id}][{hex(self.address)}] Deploy argent account")
+        logger.info(f"[{self._id}][{self.address_str}] Deploy argent account")
 
         class_hash = ARGENTX_IMPLEMENTATION_CLASS_HASH_NEW
 
@@ -251,7 +252,7 @@ class Starknet:
         version = bytes.fromhex(hex(account_version.as_tuple()[0])[2:]).decode("utf8")
 
         if version == "0.2.3":
-            logger.info(f"[{self._id}][{hex(self.address)}] Upgrade account to cairo 1")
+            logger.info(f"[{self._id}][{self.address_str}] Upgrade account to cairo 1")
 
             upgrade_call = contract.functions["upgrade"].prepare(class_hash, [0])
 
@@ -261,4 +262,4 @@ class Starknet:
 
             await self.wait_until_tx_finished(transaction_response.transaction_hash)
         else:
-            logger.info(f"[{self._id}][{hex(self.address)}] No upgrade required")
+            logger.info(f"[{self._id}][{self.address_str}] No upgrade required")

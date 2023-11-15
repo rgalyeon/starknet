@@ -43,7 +43,7 @@ class SwapTokens(Starknet):
     ):
         random.shuffle(tokens)
 
-        logger.info(f"[{self._id}][{hex(self.address)}] Start swap tokens")
+        logger.info(f"[{self._id}][{self.address_str}] Start swap tokens")
 
         for _, token in enumerate(tokens, start=1):
             balance = await self.get_balance(STARKNET_TOKENS[token])

@@ -31,7 +31,7 @@ class Routes(Starknet):
         return modules_to_run
 
     async def start(self, use_modules: list, sleep_from: int, sleep_to: int, random_module: bool):
-        logger.info(f"[{self._id}][{hex(self.address)}] Start using routes")
+        logger.info(f"[{self._id}][{self.address_str}] Start using routes")
 
         run_modules = self.run_modules(use_modules)
 
@@ -40,7 +40,7 @@ class Routes(Starknet):
 
         for module in run_modules:
             if module is None:
-                logger.info(f"[{self._id}][{self.address}] Skip module")
+                logger.info(f"[{self._id}][{self.address_str}] Skip module")
                 continue
 
             await module(self._id, self.private_key, self.type_account)

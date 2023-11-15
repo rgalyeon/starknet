@@ -18,7 +18,7 @@ class Dmail(Starknet):
     @retry
     @check_gas("starknet")
     async def send_mail(self):
-        logger.info(f"[{self._id}][{hex(self.address)}] Dmail send mail")
+        logger.info(f"[{self._id}][{self.address_str}] Dmail send mail")
 
         email_address = sha256(str(1e10 * random.random()).encode()).hexdigest()
         theme = sha256(str(1e10 * random.random()).encode()).hexdigest()

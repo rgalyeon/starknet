@@ -53,7 +53,7 @@ class Nostra(Starknet):
             max_percent
         )
 
-        logger.info(f"[{self._id}][{hex(self.address)}] Make deposit {token} on Nostra")
+        logger.info(f"[{self._id}][{self.address_str}] Make deposit {token} on Nostra")
 
         approve_contract = self.get_contract(STARKNET_TOKENS[token])
 
@@ -88,7 +88,7 @@ class Nostra(Starknet):
         amount = await self.get_deposit_amount(token)
 
         logger.info(
-            f"[{self._id}][{hex(self.address)}] Make withdraw {token} from Nostra"
+            f"[{self._id}][{self.address_str}] Make withdraw {token} from Nostra"
         )
 
         if amount > 0:
@@ -106,4 +106,4 @@ class Nostra(Starknet):
 
             await self.wait_until_tx_finished(transaction_response.transaction_hash)
         else:
-            logger.error(f"[{self._id}][{hex(self.address)}] Deposit not found")
+            logger.error(f"[{self._id}][{self.address_str}] Deposit not found")

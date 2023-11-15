@@ -41,7 +41,7 @@ class Multiswap(Starknet):
     ):
         quantity_swap = random.randint(min_swap, max_swap)
 
-        logger.info(f"[{self._id}][{hex(self.address)}] Start MultiSwap | quantity swaps: {quantity_swap}")
+        logger.info(f"[{self._id}][{self.address_str}] Start MultiSwap | quantity swaps: {quantity_swap}")
 
         tokens_data = [
             balance["symbol"] for balance in

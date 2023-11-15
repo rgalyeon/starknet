@@ -102,7 +102,7 @@ class Orbiter:
         )
 
         logger.info(
-            f"[{self._id}][{hex(starknet_account.address)}] Orbiter bridge to {to_chain.title()} | {amount} ETH"
+            f"[{self._id}][{hex(starknet_account.address_str)}] Orbiter bridge to {to_chain.title()} | {amount} ETH"
         )
 
         bridge_contract = starknet_account.get_contract(ORBITER_CONTRACTS["withdraw"], ORBITER_WITHDRAW_ABI)

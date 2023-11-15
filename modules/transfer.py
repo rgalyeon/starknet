@@ -33,7 +33,7 @@ class Transfer(Starknet):
             max_percent
         )
 
-        logger.info(f"[{self._id}][{hex(self.address)}] Make transfer to {self.recipient} | {amount} ETH")
+        logger.info(f"[{self._id}][{self.address_str}] Make transfer to {self.recipient} | {amount} ETH")
 
         contract = self.get_contract(STARKNET_TOKENS["ETH"])
 
@@ -49,5 +49,5 @@ class Transfer(Starknet):
             await self.wait_until_tx_finished(transaction_response.transaction_hash)
         else:
             logger.error(
-                f"[{self._id}][{hex(self.address)}] Don't have money for transfer | balance: {balance['balance_wei']}"
+                f"[{self._id}][{self.address_str}] Don't have money for transfer | balance: {balance['balance_wei']}"
             )

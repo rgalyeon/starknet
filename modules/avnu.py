@@ -80,7 +80,7 @@ class Avnu(Starknet):
         )
 
         logger.info(
-            f"[{self._id}][{hex(self.address)}] Swap on Avnu - {from_token} -> {to_token} | {amount} {from_token}"
+            f"[{self._id}][{self.address_str}] Swap on Avnu - {from_token} -> {to_token} | {amount} {from_token}"
         )
 
         quote_id = await get_quotes(STARKNET_TOKENS[from_token], STARKNET_TOKENS[to_token], amount_wei)

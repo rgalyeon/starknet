@@ -49,7 +49,7 @@ class Jediswap(Starknet):
         )
 
         logger.info(
-            f"[{self._id}][{hex(self.address)}] Swap on Jediswap - {from_token} -> {to_token} | {amount} {from_token}"
+            f"[{self._id}][{self.address_str}] Swap on Jediswap - {from_token} -> {to_token} | {amount} {from_token}"
         )
 
         path = [STARKNET_TOKENS[from_token], STARKNET_TOKENS[to_token]]

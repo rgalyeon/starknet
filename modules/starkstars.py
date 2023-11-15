@@ -31,7 +31,7 @@ class StarkStars(Starknet):
 
         contracts = contracts if mint_all is True else random.sample(contracts, quantity_mint)
 
-        logger.info(f"[{self._id}][{hex(self.address)}] Mint {quantity_mint} StarkStars NFT")
+        logger.info(f"[{self._id}][{self.address_str}] Mint {quantity_mint} StarkStars NFT")
 
         for _, contract in enumerate(contracts, start=1):
             nft_contract = self.get_contract(contract, STARKSTARS_ABI, 1)
@@ -41,7 +41,7 @@ class StarkStars(Starknet):
 
             nft_name = bytearray.fromhex(hex(nft_id)[2:]).decode()
 
-            logger.info(f"[{self._id}][{hex(self.address)}] Mint #{nft_name} NFT")
+            logger.info(f"[{self._id}][{self.address_str}] Mint #{nft_name} NFT")
 
             approve_call = approve_contract.functions["approve"].prepare(
                 contract,

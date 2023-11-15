@@ -15,7 +15,7 @@ class Unframed(Starknet):
     @retry
     @check_gas("starknet")
     async def cancel_order(self):
-        logger.info(f"[{self._id}][{hex(self.address)}] Unframed cancel order")
+        logger.info(f"[{self._id}][{self.address_str}] Unframed cancel order")
 
         random_nonce = random.randint(
             296313738189912513306030367211954909183182558840765666364410788857347237284,

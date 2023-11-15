@@ -73,7 +73,7 @@ class MySwap(Starknet):
         )
 
         logger.info(
-            f"[{self._id}][{hex(self.address)}] Swap on MySwap - {from_token} -> {to_token} | {amount} {from_token}"
+            f"[{self._id}][{self.address_str}] Swap on MySwap - {from_token} -> {to_token} | {amount} {from_token}"
         )
 
         pool_id, reverse = await self.get_pool_id(from_token, to_token)

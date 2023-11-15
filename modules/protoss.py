@@ -49,7 +49,7 @@ class Protoss(Starknet):
         )
 
         logger.info(
-            f"[{self._id}][{hex(self.address)}] Swap on Protoss - {from_token} -> {to_token} | {amount} {from_token}"
+            f"[{self._id}][{self.address_str}] Swap on Protoss - {from_token} -> {to_token} | {amount} {from_token}"
         )
 
         path = [STARKNET_TOKENS[from_token], STARKNET_TOKENS[to_token]]
