@@ -6,3 +6,6 @@ requests==2.31.0
 tqdm==4.66.1
 web3==6.9.0
 cryptography==41.0.5
+ccxt~=4.1.52
+aiohttp~=3.8.6
+hexbytes~=0.3.1

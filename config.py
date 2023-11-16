@@ -4,6 +4,13 @@ WALLETS_PATH = 'wallets.txt'
 PRIVATE_KEYS_PATH = 'private_keys.txt'
 ENCRYPTED_DATA_PATH = 'encrypted_data.txt'
 
+OKX_API_INFO = {
+    'apiKey': "",
+    'secret': "",
+    'password': "",
+    'proxy_url': ""
+}
+
 with open('data/rpc.json') as file:
     RPC = json.load(file)
 

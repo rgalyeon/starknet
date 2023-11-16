@@ -31,44 +31,45 @@ def get_module():
         "Select a method to get started",
         choices=[
             Choice("0) Encrypt starknet wallets", encrypt_privates),
-            Choice("1) Make deposit to Starknet", deposit_starknet),
-            Choice("2) Make withdraw from Starknet", withdraw_starknet),
-            Choice("3) Deploy argent account", deploy_argent),
-            Choice("4) Upgrade argent account", upgrade_argent),
-            Choice("5) Bridge on Orbiter", bridge_orbiter),
-            Choice("6) Make swap on JediSwap", swap_jediswap),
-            Choice("7) Make swap on MySwap", swap_myswap),
-            Choice("8) Make swap on 10kSwap", swap_starkswap),
-            Choice("9) Make swap on SithSwap", swap_sithswap),
-            Choice("10) Make swap on Avnu", swap_avnu),
-            Choice("11) Make swap on Protoss", swap_protoss),
-            Choice("12) Deposit ZkLend", deposit_zklend),
-            Choice("13) Deposit Nostra", deposit_nostra),
-            Choice("14) Withdraw ZkLend", withdraw_zklend),
-            Choice("15) Withdraw Nostra", withdraw_nostra),
-            Choice("16) Enable collateral ZkLend", enable_collateral_zklend),
-            Choice("17) Disable collateral ZkLend", disable_collateral_zklend),
-            Choice("18) Mint Starknet ID", mint_starknet_id),
-            Choice("19) Dmail send mail", send_mail_dmail),
-            Choice("20) Mint StarkStars NFT", mint_starkstars),
-            Choice("21) Mint NFT on Pyramid", create_collection_pyramid),
-            Choice("22) Unframed", cancel_order_unframed),
-            Choice("23) Flex", cancel_order_flex),
-            Choice("24) Deploy token", deploy_token),
-            Choice("25) Deploy and mint NFT", deploy_nft),
-            Choice("26) Transfer", make_transfer),
-            Choice("27) Swap tokens to ETH", swap_tokens),
-            Choice("28) Use Multiswap", swap_multiswap),
-            Choice("29) Use custom routes ", custom_routes),
-            Choice("30) Check transaction count", "tx_checker"),
-            Choice("31) Exit", "exit"),
+            Choice("1) Make deposit from OKX", withdraw_okx),
+            Choice("2) Make deposit to Starknet", deposit_starknet),
+            Choice("3) Make withdraw from Starknet", withdraw_starknet),
+            Choice("4) Deploy argent account", deploy_argent),
+            Choice("5) Upgrade argent account", upgrade_argent),
+            Choice("6) Bridge on Orbiter", bridge_orbiter),
+            Choice("7) Make swap on JediSwap", swap_jediswap),
+            Choice("8) Make swap on MySwap", swap_myswap),
+            Choice("9) Make swap on 10kSwap", swap_starkswap),
+            Choice("10) Make swap on SithSwap", swap_sithswap),
+            Choice("11) Make swap on Avnu", swap_avnu),
+            Choice("12) Make swap on Protoss", swap_protoss),
+            Choice("13) Deposit ZkLend", deposit_zklend),
+            Choice("14) Deposit Nostra", deposit_nostra),
+            Choice("15) Withdraw ZkLend", withdraw_zklend),
+            Choice("16) Withdraw Nostra", withdraw_nostra),
+            Choice("17) Enable collateral ZkLend", enable_collateral_zklend),
+            Choice("18) Disable collateral ZkLend", disable_collateral_zklend),
+            Choice("19) Mint Starknet ID", mint_starknet_id),
+            Choice("20) Dmail send mail", send_mail_dmail),
+            Choice("21) Mint StarkStars NFT", mint_starkstars),
+            Choice("22) Mint NFT on Pyramid", create_collection_pyramid),
+            Choice("23) Unframed", cancel_order_unframed),
+            Choice("24) Flex", cancel_order_flex),
+            Choice("25) Deploy token", deploy_token),
+            Choice("26) Deploy and mint NFT", deploy_nft),
+            Choice("27) Transfer", make_transfer),
+            Choice("28) Swap tokens to ETH", swap_tokens),
+            Choice("29) Use Multiswap", swap_multiswap),
+            Choice("30) Use custom routes ", custom_routes),
+            Choice("31) Check transaction count", "tx_checker"),
+            Choice("32) Exit", "exit"),
         ],
         qmark="⚙️ ",
         pointer="✅ "
     ).ask()
     if result == "exit":
-        print("\n❤️ Subscribe to me – https://t.me/sybilwave\n")
-        print("🤑 Donate me: 0x00000b0ddce0bfda4531542ad1f2f5fad7b9cde9")
+        print("\n❤️ Author – https://t.me/sybilwave\n")
+        print("\n❤️ Fork Author – https://t.me/rgalyeon\n")
         sys.exit()
     return result
 
@@ -136,7 +137,8 @@ def main(module):
 
 
 if __name__ == '__main__':
-    print("❤️ Subscribe to me – https://t.me/sybilwave\n")
+    print("❤️ Author – https://t.me/sybilwave\n")
+    print("\n❤️ Fork Author – https://t.me/rgalyeon\n")
 
     loguru.logger.add('logs.txt', filter=filter_out_utils)
     module = get_module()
@@ -145,5 +147,5 @@ if __name__ == '__main__':
     else:
         main(module)
 
-    print("\n❤️ Subscribe to me – https://t.me/sybilwave\n")
-    print("🤑 Donate me: 0x00000b0ddce0bfda4531542ad1f2f5fad7b9cde9")
+    print("\n❤️ Author – https://t.me/sybilwave\n")
+    print("\n❤️ Fork Author – https://t.me/rgalyeon\n")

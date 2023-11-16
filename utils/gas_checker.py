@@ -3,7 +3,7 @@ import random
 
 from starknet_py.net.gateway_client import GatewayClient
 
-from web3 import Web3
+from web3 import AsyncWeb3
 from web3.eth import AsyncEth
 from config import RPC
 from settings import CHECK_GWEI, MAX_GWEI, GAS_SLEEP_FROM, GAS_SLEEP_TO
@@ -14,8 +14,8 @@ from utils.sleeping import sleep
 
 async def get_gas():
     try:
-        w3 = Web3(
-            Web3.AsyncHTTPProvider(random.choice(RPC["ethereum"]["rpc"])),
+        w3 = AsyncWeb3(
+            AsyncWeb3.AsyncHTTPProvider(random.choice(RPC["ethereum"]["rpc"])),
             modules={"eth": (AsyncEth,)},
         )
         gas_price = await w3.eth.gas_price
@@ -45,11 +45,11 @@ async def wait_gas_starknet():
 
     while True:
         block_data = await client.get_block("latest")
-        gas = Web3.from_wei(block_data.gas_price, "gwei")
+        gas = AsyncWeb3.from_wei(block_data.gas_price, "gwei")
 
         if gas > MAX_GWEI:
             logger.info(f'Current GWEI: {gas} > {MAX_GWEI}')
-            await sleep(60, 70)
+            await sleep(GAS_SLEEP_FROM, GAS_SLEEP_TO)
         else:
             logger.success(f"GWEI is normal | current: {gas} < {MAX_GWEI}")
             break

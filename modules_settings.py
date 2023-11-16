@@ -3,6 +3,25 @@ import asyncio
 from modules import *
 
 
+async def withdraw_okx(_id, key, type_account):
+    """
+    Withdraw ETH from OKX. OKX support only ETH for Starknet chain
+    ______________________________________________________
+    min_amount - min amount (ETH)
+    max_amount - max_amount (ETH)
+    terminate - if True - terminate program if money is not withdrawn
+    """
+    token = 'ETH'
+
+    min_amount = 0.002
+    max_amount = 0.004
+
+    terminate = True
+
+    okx_exchange = Okx(_id, key, type_account)
+    await okx_exchange.okx_withdraw(min_amount, max_amount, token, 'Starknet', terminate)
+
+
 async def deposit_starknet(_id, key, type_account, recipient):
     """
     Deposit to Starknet
@@ -540,12 +559,17 @@ async def custom_routes(account_id, key, type_account):
         example (send_mail, 1, 10) run this module 1 to 10 times
         """
 
-    use_modules = [deposit_zklend, deposit_nostra]
+    use_modules = [withdraw_okx,
+                   deploy_argent,
+                   [send_mail_dmail, deploy_token, deploy_token,
+                    mint_starkstars, enable_collateral_zklend, deposit_nostra,
+                    swap_multiswap, mint_starknet_id, create_collection_pyramid]
+                   ]
 
-    sleep_from = 1
-    sleep_to = 3
+    sleep_from = 30
+    sleep_to = 60
 
-    random_module = True
+    random_module = False
 
     routes = Routes(account_id, key, type_account)
     await routes.start(use_modules, sleep_from, sleep_to, random_module)

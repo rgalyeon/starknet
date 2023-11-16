@@ -169,3 +169,6 @@ __pycache__/
 .idea/
 venv
 encrypted_data.txt
+private_keys.txt
+wallets.txt
+logs.txt
