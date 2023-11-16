@@ -18,6 +18,11 @@ THREAD_SLEEP_TO = 450
 # GWEI CONTROL MODE
 CHECK_GWEI = True
 MAX_GWEI = 20
+
+# Рандомизация гвея. Если включен режим, то максимальный гвей будет выбираться из диапазона
+RANDOMIZE_GWEI = True  # if True, max Gwei will be randomized for each wallet for each transaction
+MAX_GWEI_RANGE = [24, 27]
+
 GAS_SLEEP_FROM = 500
 GAS_SLEEP_TO = 700
 # RETRY MODE

@@ -6,10 +6,18 @@ from starknet_py.net.gateway_client import GatewayClient
 from web3 import AsyncWeb3
 from web3.eth import AsyncEth
 from config import RPC
-from settings import CHECK_GWEI, MAX_GWEI, GAS_SLEEP_FROM, GAS_SLEEP_TO
+from settings import CHECK_GWEI, MAX_GWEI, GAS_SLEEP_FROM, GAS_SLEEP_TO, RANDOMIZE_GWEI, MAX_GWEI_RANGE
 from loguru import logger
 
 from utils.sleeping import sleep
+
+
+def get_max_gwei_user_settings():
+    max_gwei = MAX_GWEI
+    if RANDOMIZE_GWEI:
+        left_bound, right_bound = MAX_GWEI_RANGE
+        max_gwei = random.uniform(left_bound, right_bound)
+    return max_gwei
 
 
 async def get_gas():
@@ -30,11 +38,12 @@ async def wait_gas_ethereum():
     while True:
         gas = await get_gas()
 
-        if gas > MAX_GWEI:
-            logger.info(f'Current GWEI: {gas} > {MAX_GWEI}')
+        max_gwei = get_max_gwei_user_settings()
+        if gas > max_gwei:
+            logger.info(f'Current GWEI: {gas} > {max_gwei}')
             await sleep(GAS_SLEEP_FROM, GAS_SLEEP_TO)
         else:
-            logger.success(f"GWEI is normal | current: {gas} < {MAX_GWEI}")
+            logger.success(f"GWEI is normal | current: {gas} < {max_gwei}")
             break
 
 
@@ -47,11 +56,12 @@ async def wait_gas_starknet():
         block_data = await client.get_block("latest")
         gas = AsyncWeb3.from_wei(block_data.gas_price, "gwei")
 
-        if gas > MAX_GWEI:
-            logger.info(f'Current GWEI: {gas} > {MAX_GWEI}')
+        max_gwei = get_max_gwei_user_settings()
+        if gas > max_gwei:
+            logger.info(f'Current GWEI: {gas} > {max_gwei}')
             await sleep(GAS_SLEEP_FROM, GAS_SLEEP_TO)
         else:
-            logger.success(f"GWEI is normal | current: {gas} < {MAX_GWEI}")
+            logger.success(f"GWEI is normal | current: {gas} < {max_gwei}")
             break
 
 
