@@ -24,3 +24,4 @@ from .routes import Routes
 from .tx_checker import check_tx
 from .encrypt_privates import encrypt_privates
 from .okx import Okx
+from .gol import Gol

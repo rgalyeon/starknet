@@ -53,23 +53,24 @@ def get_module():
             Choice("20) Dmail send mail", send_mail_dmail),
             Choice("21) Mint StarkStars NFT", mint_starkstars),
             Choice("22) Mint NFT on Pyramid", create_collection_pyramid),
-            Choice("23) Unframed", cancel_order_unframed),
-            Choice("24) Flex", cancel_order_flex),
-            Choice("25) Deploy token", deploy_token),
-            Choice("26) Deploy and mint NFT", deploy_nft),
-            Choice("27) Transfer", make_transfer),
-            Choice("28) Swap tokens to ETH", swap_tokens),
-            Choice("29) Use Multiswap", swap_multiswap),
-            Choice("30) Use custom routes ", custom_routes),
-            Choice("31) Check transaction count", "tx_checker"),
-            Choice("32) Exit", "exit"),
+            Choice("23) Mint Gol token", mint_gol),
+            Choice("24) Unframed", cancel_order_unframed),
+            Choice("25) Flex", cancel_order_flex),
+            Choice("26) Deploy token", deploy_token),
+            Choice("27) Deploy and mint NFT", deploy_nft),
+            Choice("28) Transfer", make_transfer),
+            Choice("29) Swap tokens to ETH", swap_tokens),
+            Choice("30) Use Multiswap", swap_multiswap),
+            Choice("31) Use custom routes ", custom_routes),
+            Choice("32) Check transaction count", "tx_checker"),
+            Choice("33) Exit", "exit"),
         ],
         qmark="⚙️ ",
         pointer="✅ "
     ).ask()
     if result == "exit":
-        print("\n❤️ Author – https://t.me/sybilwave\n")
-        print("\n❤️ Fork Author – https://t.me/rgalyeon\n")
+        print("\n❤️ Author – https://t.me/sybilwave")
+        print("❤️ Fork Author – https://t.me/rgalyeon\n")
         sys.exit()
     return result
 
@@ -98,10 +99,13 @@ def get_wallets(use_recipients: bool = False):
 
 
 async def run_module(module, account_id, key, recipient: Union[str, None] = None):
-    if recipient:
-        await module(account_id, key, TYPE_WALLET, recipient)
-    else:
-        await module(account_id, key, TYPE_WALLET)
+    try:
+        if recipient:
+            await module(account_id, key, TYPE_WALLET, recipient)
+        else:
+            await module(account_id, key, TYPE_WALLET)
+    except Exception as e:
+        loguru.logger.error(e)
 
     if REMOVE_WALLET:
         remove_wallet(key, recipient)
@@ -137,8 +141,8 @@ def main(module):
 
 
 if __name__ == '__main__':
-    print("❤️ Author – https://t.me/sybilwave\n")
-    print("\n❤️ Fork Author – https://t.me/rgalyeon\n")
+    print("❤️ Author – https://t.me/sybilwave")
+    print("❤️ Fork Author – https://t.me/rgalyeon\n")
 
     loguru.logger.add('logs.txt', filter=filter_out_utils)
     module = get_module()
@@ -147,5 +151,5 @@ if __name__ == '__main__':
     else:
         main(module)
 
-    print("\n❤️ Author – https://t.me/sybilwave\n")
-    print("\n❤️ Fork Author – https://t.me/rgalyeon\n")
+    print("\n❤️ Author – https://t.me/sybilwave")
+    print("❤️ Fork Author – https://t.me/rgalyeon\n")

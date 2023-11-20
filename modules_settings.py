@@ -418,6 +418,19 @@ async def mint_starkstars(_id, key, type_account):
     await starkstars.mint(contracts, quantity_mint_min, quantity_mint_max, mint_all, sleep_from, sleep_to)
 
 
+async def mint_starknet_id(_id, key, type_account):
+    """
+    Mint Starknet ID
+    ______________________________________________________
+    hard_mint – If you already have a Starknet ID, you can mint again
+    """
+
+    hard_mint = True
+
+    starknet_id = StarknetId(_id, key, type_account)
+    await starknet_id.mint(hard_mint)
+
+
 async def disable_collateral_zklend(_id, key, type_account):
     """
     Disable collateral on ZkLend
@@ -522,6 +535,7 @@ async def custom_routes(account_id, key, type_account):
             – deposit_starknet
             – withdraw_starknet
             – bridge_orbiter
+            - withdraw okx
         DEX:
             – swap_jediswap
             – swap_myswap
@@ -540,6 +554,7 @@ async def custom_routes(account_id, key, type_account):
             – mint_starkstars
             – mint_starknet_id
             – create_collection_pyramid
+            - mint gol
         ANOTHER:
             – deploy_argent
             – send_mail_dmail
@@ -561,9 +576,10 @@ async def custom_routes(account_id, key, type_account):
 
     use_modules = [withdraw_okx,
                    deploy_argent,
-                   [send_mail_dmail, deploy_token, deploy_token,
+                   [send_mail_dmail, deploy_token, deploy_nft,
                     mint_starkstars, enable_collateral_zklend, deposit_nostra,
-                    swap_multiswap, mint_starknet_id, create_collection_pyramid]
+                    swap_multiswap, mint_starknet_id, create_collection_pyramid,
+                    mint_gol]
                    ]
 
     sleep_from = 30
@@ -579,11 +595,6 @@ async def custom_routes(account_id, key, type_account):
 ########### NO NEED TO CHANGE ###########
 #########################################
 
-async def mint_starknet_id(_id, key, type_account):
-    starknet_id = StarknetId(_id, key, type_account)
-    await starknet_id.mint()
-
-
 async def send_mail_dmail(_id, key, type_account):
     dmail = Dmail(_id, key, type_account)
     await dmail.send_mail()
@@ -592,6 +603,11 @@ async def send_mail_dmail(_id, key, type_account):
 async def create_collection_pyramid(_id, key, type_account):
     pyramid = Pyramid(_id, key, type_account)
     await pyramid.mint()
+
+
+async def mint_gol(_id, key, type_account):
+    gol = Gol(_id, key, type_account)
+    await gol.mint_token()
 
 
 async def cancel_order_unframed(_id, key, type_account):

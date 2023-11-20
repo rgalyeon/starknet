@@ -48,7 +48,7 @@ def get_private_keys_from_wallets(password) -> List[str]:
     with open(encrypted_data_path, 'rb') as f:
         encoded_keys = f.read()
     with open(wallets_path, 'r') as f:
-        wallets = f.read().split()
+        wallets = [wallet.lower() for wallet in f.read().split()]
 
     fernet = Fernet(password)
     wallet_data = json.loads(fernet.decrypt(encoded_keys).decode())
@@ -80,7 +80,7 @@ def encrypt_private_keys(password: bytes):
     with open(private_path, 'r') as f:
         private_keys = f.read().split()
     with open(wallets_path, 'r') as f:
-        wallets = f.read().split()
+        wallets = [wallet.lower() for wallet in f.read().split()]
 
     if len(private_keys) != len(wallets):
         raise ValueError(f'Length of wallets != length of private keys')
