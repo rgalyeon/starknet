@@ -625,6 +625,21 @@ async def deploy_token(_id, key, type_account):
     await stark_guardians.deploy_token()
 
 
+async def mint_starkverse(_id, key, type_account):
+    starkverse = Starkverse(_id, key, type_account)
+    await starkverse.mint()
+
+
+async def approve_almanac(_id, key, type_account):
+    almanac = Almanac(_id, key, type_account)
+    await almanac.approve_nft()
+
+
+async def approve_ninth(_id, key, type_account):
+    ninth = Ninth(_id, key, type_account)
+    await ninth.approve_token()
+
+
 async def deploy_argent(_id, key, type_account):
     starknet = Starknet(_id, key, type_account)
     await starknet.deploy_argent()
