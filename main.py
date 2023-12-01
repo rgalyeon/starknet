@@ -67,6 +67,7 @@ def get_module():
             Choice(f"{next(counter)}) Swap tokens to ETH", swap_tokens),
             Choice(f"{next(counter)}) Use Multiswap", swap_multiswap),
             Choice(f"{next(counter)}) Use custom routes ", custom_routes),
+            Choice(f"{next(counter)}) Use automatic routes ", automatic_routes),
             Choice(f"{next(counter)}) Check transaction count", "tx_checker"),
             Choice(f"{next(counter)}) Exit", "exit"),
         ],

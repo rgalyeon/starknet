@@ -591,9 +591,39 @@ async def custom_routes(account_id, key, type_account):
     await routes.start(use_modules, sleep_from, sleep_to, random_module)
 
 
+async def automatic_routes(account_id, key, type_account):
+    """
+    Модуль автоматически генерирует пути по которому пройдет кошелек,
+    меняя вероятности выбрать тот или иной модуль для каждого кошелька
+
+    Parameters
+    ----------
+    transaction_count - количество транзакций (не обязательно все выполнятся, модули могут пропускаться)
+    cheap_ratio - от 0 до 1, доля дешевых транзакций при построении маршрута
+    cheap_modules - список модулей, которые будут использоваться в качестве дешевых
+    expensive_modules - список модулей, которые будут использоваться в качестве дорогих
+    -------
+
+    """
+
+    transaction_count = 25
+    cheap_ratio = 1.0
+
+    sleep_from = 30
+    sleep_to = 60
+
+    cheap_modules = [approve_ninth, approve_almanac, mint_starkverse, deploy_token, mint_gol,
+                     send_mail_dmail, send_mail_dmail, deploy_nft, mint_starknet_id,
+                     mint_starkstars, mint_starkstars, enable_collateral_zklend]
+    expensive_modules = [swap_multiswap, deposit_nostra, create_collection_pyramid]
+
+    routes = Routes(account_id, key, type_account)
+    await routes.start_automatic(transaction_count, cheap_ratio, sleep_from, sleep_to, cheap_modules, expensive_modules)
+
 #########################################
 ########### NO NEED TO CHANGE ###########
 #########################################
+
 
 async def send_mail_dmail(_id, key, type_account):
     dmail = Dmail(_id, key, type_account)
