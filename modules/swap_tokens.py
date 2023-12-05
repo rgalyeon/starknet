@@ -49,7 +49,6 @@ class SwapTokens(Starknet):
             balance = await self.get_balance(STARKNET_TOKENS[token])
 
             if balance["balance_wei"] > 0:
-                logger.info(f"[{self._id}][{self.address_str}] Start swap {token} -> ETH")
                 swap_module = self.get_swap_module(use_dex)(self._id, self.private_key, self.type_account)
                 await swap_module.swap(
                     token,
@@ -62,6 +61,4 @@ class SwapTokens(Starknet):
                     min_percent,
                     max_percent
                 )
-
-            if _ != len(STARKNET_TOKENS):
                 await sleep(sleep_from, sleep_to)
