@@ -5,9 +5,10 @@ from starknet_py.net.gateway_client import GatewayClient
 
 from web3 import AsyncWeb3
 from web3.eth import AsyncEth
-from config import RPC
-from settings import CHECK_GWEI, MAX_GWEI, GAS_SLEEP_FROM, GAS_SLEEP_TO, RANDOMIZE_GWEI, MAX_GWEI_RANGE
+from config import RPC, REALTIME_SETTINGS_PATH
+from settings import CHECK_GWEI, MAX_GWEI, GAS_SLEEP_FROM, GAS_SLEEP_TO, RANDOMIZE_GWEI, MAX_GWEI_RANGE, REALTIME_GWEI
 from loguru import logger
+import json
 
 from utils.sleeping import sleep
 
@@ -17,6 +18,15 @@ def get_max_gwei_user_settings():
     if RANDOMIZE_GWEI:
         left_bound, right_bound = MAX_GWEI_RANGE
         max_gwei = random.uniform(left_bound, right_bound)
+    if REALTIME_GWEI:
+        try:
+            with open(REALTIME_SETTINGS_PATH, 'r') as f:
+                new_max_gwei = json.load(f)['MAX_GWEI']
+            if new_max_gwei < 0:
+                raise ValueError('Max gwei is not an integer')
+            max_gwei = new_max_gwei
+        except Exception:
+            pass
     return max_gwei
 
 

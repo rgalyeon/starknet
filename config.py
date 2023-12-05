@@ -4,6 +4,7 @@ WALLETS_PATH = 'wallets.txt'
 PRIVATE_KEYS_PATH = 'private_keys.txt'
 ENCRYPTED_DATA_PATH = 'encrypted_data.txt'
 RECIPIENTS_PATH = 'recipients.txt'
+REALTIME_SETTINGS_PATH = 'realtime_settings.json'
 
 OKX_API_INFO = {
     'apiKey': "",

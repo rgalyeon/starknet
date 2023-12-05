@@ -17,6 +17,7 @@ THREAD_SLEEP_TO = 450
 
 # GWEI CONTROL MODE
 CHECK_GWEI = False
+REALTIME_GWEI = True
 MAX_GWEI = 50
 
 # Рандомизация гвея. Если включен режим, то максимальный гвей будет выбираться из диапазона
