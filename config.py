@@ -3,6 +3,7 @@ import json
 WALLETS_PATH = 'wallets.txt'
 PRIVATE_KEYS_PATH = 'private_keys.txt'
 ENCRYPTED_DATA_PATH = 'encrypted_data.txt'
+RECIPIENTS_PATH = 'recipients.txt'
 
 OKX_API_INFO = {
     'apiKey': "",
@@ -16,9 +17,6 @@ with open('data/rpc.json') as file:
 
 # with open("accounts.txt", "r") as file:
 #     ACCOUNTS = [row.strip() for row in file]
-
-with open("recipients.txt", "r") as file:
-    RECIPIENTS = [row.strip() for row in file]
 
 with open('data/abi/erc20_abi.json') as file:
     ERC20_ABI = json.load(file)

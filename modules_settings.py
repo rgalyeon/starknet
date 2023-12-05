@@ -460,18 +460,18 @@ async def make_transfer(_id, key, type_account, recipient):
     """
     Transfer ETH
     """
-
     min_amount = 0.0001
     max_amount = 0.0002
     decimal = 5
 
     all_amount = True
 
-    min_percent = 5
-    max_percent = 10
+    save_funds = 0.0006  # how much ethereum save on the account
+    min_percent = 10
+    max_percent = 15
 
     transfer = Transfer(_id, key, type_account, recipient)
-    await transfer.transfer_eth(min_amount, max_amount, decimal, all_amount, min_percent, max_percent)
+    await transfer.transfer_eth(min_amount, max_amount, decimal, all_amount, min_percent, max_percent, save_funds)
 
 
 async def swap_multiswap(_id, key, type_account):
@@ -513,14 +513,14 @@ async def swap_tokens(_id, key, type_account):
     use_dex - Choose any dex: jediswap, myswap, 10kswap, sithswap, protoss, avnu
     """
 
-    use_dex = ["jediswap", "myswap", "10kswap", "sithswap", "protoss", "avnu"]
+    use_dex = ["jediswap", "avnu"]
 
-    tokens = ["USDC", "DAI"]
+    tokens = ["USDC", "DAI", "USDT"]
 
-    sleep_from = 200
-    sleep_to = 800
+    sleep_from = 10
+    sleep_to = 20
 
-    slippage = 2
+    slippage = 1
 
     min_percent = 100
     max_percent = 100

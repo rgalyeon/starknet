@@ -3,17 +3,15 @@ import random
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
-from typing import Union
 from itertools import count
 
 import loguru
 import questionary
 from questionary import Choice
 
-from config import RECIPIENTS
 from utils.helpers import remove_wallet
 from utils.sleeping import sleep
-from utils.password_handler import get_private_keys
+from utils.password_handler import get_wallet_data
 from utils.logs_handler import filter_out_utils
 from modules_settings import *
 from settings import (
@@ -81,55 +79,42 @@ def get_module():
     return result
 
 
-def get_wallets(use_recipients: bool = False):
-    ACCOUNTS = get_private_keys()
-    if use_recipients:
-        account_with_recipients = dict(zip(ACCOUNTS, RECIPIENTS))
+def get_wallets():
+    wallet_data = get_wallet_data()
 
-        wallets = [
-            {
-                "id": _id,
-                "key": key,
-                "recipient": account_with_recipients[key],
-            } for _id, key in enumerate(account_with_recipients, start=1)
-        ]
-    else:
-        wallets = [
-            {
-                "id": _id,
-                "key": key,
-            } for _id, key in enumerate(ACCOUNTS, start=1)
-        ]
+    wallets = [
+        {
+            "id": _id,
+            "key": wallet_data[address]['private_key'],
+            "okx_address": wallet_data[address]['okx_address'],
+        } for _id, address, in enumerate(wallet_data, start=1)
+    ]
 
     return wallets
 
 
-async def run_module(module, account_id, key, recipient: Union[str, None] = None):
+async def run_module(module, wallet_data):
     try:
-        if recipient:
-            await module(account_id, key, TYPE_WALLET, recipient)
+        if module == make_transfer:
+            await module(wallet_data['id'], wallet_data['key'], TYPE_WALLET, wallet_data['okx_address'])
+        elif module in {bridge_orbiter, withdraw_starknet}:
+            await module(wallet_data['id'], wallet_data['key'], TYPE_WALLET, wallet_data['evm_wallet'])
         else:
-            await module(account_id, key, TYPE_WALLET)
+            await module(wallet_data['id'], wallet_data['key'], TYPE_WALLET)
     except Exception as e:
         loguru.logger.error(e)
-
-    if REMOVE_WALLET:
-        remove_wallet(key, recipient)
 
     await sleep(SLEEP_FROM, SLEEP_TO)
 
 
-def _async_run_module(module, account_id, key, recipient):
-    asyncio.run(run_module(module, account_id, key, recipient))
+def _async_run_module(module, wallet_data):
+    asyncio.run(run_module(module, wallet_data))
 
 
 def main(module):
     if module == encrypt_privates:
         return encrypt_privates(force=True)
-    if module in [deposit_starknet, withdraw_starknet, bridge_orbiter, make_transfer]:
-        wallets = get_wallets(True)
-    else:
-        wallets = get_wallets()
+    wallets = get_wallets()
 
     if RANDOM_WALLET:
         random.shuffle(wallets)
@@ -139,9 +124,7 @@ def main(module):
             executor.submit(
                 _async_run_module,
                 module,
-                account.get("id"),
-                account.get("key"),
-                account.get("recipient", None)
+                account
             )
             time.sleep(random.randint(THREAD_SLEEP_FROM, THREAD_SLEEP_TO))
 
