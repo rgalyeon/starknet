@@ -4,6 +4,7 @@ from config import STARKNET_TOKENS
 from utils.gas_checker import check_gas
 from utils.helpers import retry
 from . import Starknet
+from web3 import Web3
 
 
 class Transfer(Starknet):
@@ -35,6 +36,8 @@ class Transfer(Starknet):
             max_percent
         )
 
+        if type(amount) != float:
+            save_funds = Web3.from_wei(Web3.to_wei(save_funds, 'ether'), 'ether')
         amount -= save_funds
 
         logger.info(f"[{self._id}][{self.address_str}] Make transfer to {self.recipient} | {amount} ETH")
@@ -43,7 +46,7 @@ class Transfer(Starknet):
 
         balance = await self.get_balance(STARKNET_TOKENS["ETH"])
 
-        amount_wei -= save_funds * 10 ** balance['decimal']
+        amount_wei -= Web3.to_wei(save_funds, 'ether')
 
         if amount_wei < balance["balance_wei"]:
             transfer_call = contract.functions["transfer"].prepare(int(self.recipient, 16), amount_wei)
