@@ -24,6 +24,7 @@ class Transfer(Starknet):
             max_percent: int,
             save_funds: float
     ):
+
         amount_wei, amount, balance = await self.get_amount(
             "ETH",
             min_amount,
@@ -34,13 +35,15 @@ class Transfer(Starknet):
             max_percent
         )
 
+        amount -= save_funds
+
         logger.info(f"[{self._id}][{self.address_str}] Make transfer to {self.recipient} | {amount} ETH")
 
         contract = self.get_contract(STARKNET_TOKENS["ETH"])
 
         balance = await self.get_balance(STARKNET_TOKENS["ETH"])
 
-        balance["balance_wei"] -= save_funds * 10 ** balance["decimal"]
+        amount_wei -= save_funds * 10 ** balance['decimal']
 
         if amount_wei < balance["balance_wei"]:
             transfer_call = contract.functions["transfer"].prepare(int(self.recipient, 16), amount_wei)
